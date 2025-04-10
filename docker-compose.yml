@@ -314,7 +314,7 @@ services:
     # ie. Remove all lines that begin with UN_CMDHOOK, UN_WEBHOOK, UN_FOLDER, UN_WEBSERVER, and other apps you do not use.
     environment:
       - PUID=${PUID}
-      - PGID={$PGID}
+      - PGID=${PGID}
       - UN_START_DELAY=1m
       - UMASK=002
       - TZ=${TZ}
