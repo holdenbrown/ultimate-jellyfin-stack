@@ -302,7 +302,7 @@ services:
   unpackerr:
     image: ghcr.io/hotio/unpackerr:latest
     container_name: unpackerr
-
+    user: ${PUID}:${PGID}
     volumes:
       # You need at least this one volume mapped so Unpackerr can find your files to extract.
       # Make sure this matches your Starr apps; the folder mount (/downloads or /data) should be identical.
