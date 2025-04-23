@@ -307,7 +307,7 @@ services:
       # You need at least this one volume mapped so Unpackerr can find your files to extract.
       # Make sure this matches your Starr apps; the folder mount (/downloads or /data) should be identical.
       - ${MEDIA_SHARE}:/data
-      #- ${BASE_PATH}/unpackerr/config:/config
+      - ${BASE_PATH}/unpackerr/config:/config
     restart: always
     # What you see below are defaults for this compose. You only need to modify things specific to your environment.
     # Remove apps and feature configs you do not use or need. 
