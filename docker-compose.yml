@@ -366,13 +366,13 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     environment:
-      - VPN_SERVICE_PROVIDER=mullvad
+      - VPN_SERVICE_PROVIDER=protonvpn
       - VPN_TYPE=wireguard
       - WIREGUARD_PRIVATE_KEY=${WIREGUARD_KEY}
       - WIREGUARD_ADDRESSES=${WIREGUARD_ADD}
       - SERVER_CITIES=${VPN_SERVER_CITIES}
       - UPDATER_PERIOD=24h
-      - UPDATER_VPN_SERVICE_PROVIDERS=mullvad
+      - UPDATER_VPN_SERVICE_PROVIDERS=protonvpn
       - WIREGUARD_MTU=${WIREGUARD_MTU:-1200}
       - PUBLICIP_API=${PUBLICIP_API}
       - PUBLICIP_API_TOKEN=${PUBLICIP_TOKEN}
