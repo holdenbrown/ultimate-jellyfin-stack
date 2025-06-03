@@ -134,9 +134,6 @@ services:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
     network_mode: "service:gluetun"
-    networks:
-      - proxy
-      - starr
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
