@@ -34,9 +34,10 @@ services:
       - ${MEDIA_SHARE}/media:/media
       - ${BASE_PATH}/swag/config/keys/letsencrypt:/certificates
     restart: unless-stopped
-    networks:
-      - proxy
-      - starr
+    networks: 
+    proxy: 
+    starr: 
+     ipv4_address: 172.21.0.7
     
   #Radarr - used to find movies automatically
   radarr:
@@ -51,12 +52,13 @@ services:
       - ${MEDIA_SHARE}:/data #Access to the entire /media
     ports:
       - 7878:7878
-    networks:
-      proxy:
-      starr:
-      gluetun_network:
-        ipv4_address: ${RADARR_IPV4}
-    restart: unless-stopped
+    networks: 
+     proxy: 
+     starr: 
+     ipv4_address: 172.21.0.3 
+    gluetun_network: 
+     ipv4_address: ${RADARR_IPV4}
+     restart: unless-stopped
     
   #Sonarr - used to find shows automatically
   sonarr:
@@ -74,6 +76,7 @@ services:
     networks:
       proxy:
       starr:
+        ipv4_address: 172.21.0.8
       gluetun_network:
         ipv4_address: ${SONARR_IPV4}
     restart: unless-stopped
@@ -91,9 +94,10 @@ services:
       - ${MEDIA_SHARE}:/data
     ports:
       - 8787:8787
-    networks:
-      - proxy
-      - starr
+    networks: 
+     proxy: 
+     starr: 
+     ipv4_address: 172.21.0.9
     restart: unless-stopped
     
   #Lidarr - Used to download music 
@@ -109,9 +113,10 @@ services:
       - ${MEDIA_SHARE}:/data
     ports:
       - 8686:8686
-    networks:
-      - proxy
-      - starr
+    networks: 
+     proxy: 
+     starr: 
+     ipv4_address: 172.21.0.10
     restart: unless-stopped
 
   #Kapowarr - Used to download comics
@@ -166,9 +171,10 @@ services:
     volumes:
       - ${BASE_PATH}/jellyseerr/config:/app/config
       - ${MEDIA_SHARE}:/data #Access to the entire ${BASE_PATH}
-    networks:
-      - proxy
-      - starr
+    networks: 
+    proxy: 
+    starr: 
+     ipv4_address: 172.21.0.12
     ports:
       - 5055:5055
     restart: unless-stopped
@@ -254,9 +260,10 @@ services:
       - ${MEDIA_SHARE}:/data
     ports:
       - 6767:6767
-    networks:
-      - starr
-      - proxy
+    networks: 
+    starr: 
+     ipv4_address: 172.21.0.6 
+    proxy:
       
   #Cross Seed - used to take torrents from one tracker and seed them on another without leeching first. Increases ratio
   #
@@ -338,8 +345,9 @@ services:
       #- UN_RADARR_0_PATHS_0=/${BASE_PATH}/downloads/movies
       - UN_RADARR_0_TIMEOUT=10s
       #- UN_RADARR_0_PATHS_0=/${BASE_PATH}/downloads/movies
-    networks:
-      - starr
+    networks: 
+    starr: 
+     ipv4_address: 172.21.0.4
 
   cabernet:
     image: ghcr.io/cabernetwork/cabernet:latest
@@ -387,10 +395,15 @@ services:
       - 8191:8191/tcp # flaresolverr
       - 9696:9696/tcp # prowlarr
       - 7474:7474 # autobrr
-    networks:
-      - starr
-      - proxy
-      - gluetun_network
+    networks: 
+     starr: 
+     ipv4_address: 172.21.0.2 
+     proxy: 
+     gluetun_network:
+    # networks:
+    #   - starr
+    #   - proxy
+    #   - gluetun_network
     # IF VPN CANNOT CONNECT, USE BELOW COMMAND TO UPDATE SERVERS.
     # command: update -enduser -providers mullvad
 
