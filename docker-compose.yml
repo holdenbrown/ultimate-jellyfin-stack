@@ -35,9 +35,9 @@ services:
       - ${BASE_PATH}/swag/config/keys/letsencrypt:/certificates
     restart: unless-stopped
     networks: 
-    proxy: 
-    starr: 
-     ipv4_address: 172.21.0.7
+      proxy: 
+      starr: 
+        ipv4_address: 172.21.0.7
     
   #Radarr - used to find movies automatically
   radarr:
@@ -53,12 +53,12 @@ services:
     ports:
       - 7878:7878
     networks: 
-     proxy: 
-     starr: 
-     ipv4_address: 172.21.0.3 
+      proxy: 
+      starr: 
+        ipv4_address: 172.21.0.3 
     gluetun_network: 
-     ipv4_address: ${RADARR_IPV4}
-     restart: unless-stopped
+      ipv4_address: ${RADARR_IPV4}
+      restart: unless-stopped
     
   #Sonarr - used to find shows automatically
   sonarr:
@@ -95,9 +95,9 @@ services:
     ports:
       - 8787:8787
     networks: 
-     proxy: 
-     starr: 
-     ipv4_address: 172.21.0.9
+      proxy: 
+      starr: 
+        ipv4_address: 172.21.0.9
     restart: unless-stopped
     
   #Lidarr - Used to download music 
@@ -114,9 +114,9 @@ services:
     ports:
       - 8686:8686
     networks: 
-     proxy: 
-     starr: 
-     ipv4_address: 172.21.0.10
+      proxy: 
+      starr: 
+        ipv4_address: 172.21.0.10
     restart: unless-stopped
 
   #Kapowarr - Used to download comics
@@ -172,9 +172,9 @@ services:
       - ${BASE_PATH}/jellyseerr/config:/app/config
       - ${MEDIA_SHARE}:/data #Access to the entire ${BASE_PATH}
     networks: 
-    proxy: 
-    starr: 
-     ipv4_address: 172.21.0.12
+      proxy: 
+      starr: 
+        ipv4_address: 172.21.0.12
     ports:
       - 5055:5055
     restart: unless-stopped
@@ -261,9 +261,9 @@ services:
     ports:
       - 6767:6767
     networks: 
-    starr: 
-     ipv4_address: 172.21.0.6 
-    proxy:
+      starr: 
+        ipv4_address: 172.21.0.6 
+      proxy:
       
   #Cross Seed - used to take torrents from one tracker and seed them on another without leeching first. Increases ratio
   #
@@ -396,10 +396,10 @@ services:
       - 9696:9696/tcp # prowlarr
       - 7474:7474 # autobrr
     networks: 
-     starr: 
-     ipv4_address: 172.21.0.2 
-     proxy: 
-     gluetun_network:
+      starr: 
+        ipv4_address: 172.21.0.2 
+      proxy: 
+      gluetun_network:
     # networks:
     #   - starr
     #   - proxy
