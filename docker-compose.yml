@@ -346,8 +346,8 @@ services:
       - UN_RADARR_0_TIMEOUT=10s
       #- UN_RADARR_0_PATHS_0=/${BASE_PATH}/downloads/movies
     networks: 
-    starr: 
-     ipv4_address: 172.21.0.4
+      starr: 
+        ipv4_address: 172.21.0.4
 
   cabernet:
     image: ghcr.io/cabernetwork/cabernet:latest
