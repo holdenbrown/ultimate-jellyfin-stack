@@ -56,9 +56,9 @@ services:
       proxy: 
       starr: 
         ipv4_address: 172.21.0.3 
-    gluetun_network: 
-      ipv4_address: ${RADARR_IPV4}
-      restart: unless-stopped
+      gluetun_network: 
+        ipv4_address: ${RADARR_IPV4}
+    restart: unless-stopped
     
   #Sonarr - used to find shows automatically
   sonarr:
