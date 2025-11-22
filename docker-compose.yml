@@ -494,20 +494,17 @@ services:
       - jellystat-db
     restart: unless-stopped
 
-profilarr:
-  image: santiagosayshey/profilarr:latest
-  container_name: profilarr
-  ports:
-    - 6868:6868
-  volumes:
-    - ${BASE_PATH}/profilarr:/config
-  environment:
-    - TZ=${TZ}
-  restart: unless-stopped
-  networks:
-    - starr
-    - jellystat
-    - proxy
+  profilarr:
+    image: santiagosayshey/profilarr:latest
+    container_name: profilarr
+    ports:
+      - 6868:6868
+    volumes:
+      - ${BASE_PATH}/profilarr:/config
+    environment:
+      - TZ=${TZ}
+    restart: unless-stopped
     networks:
+      - starr
       - jellystat
       - proxy
