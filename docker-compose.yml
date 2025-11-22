@@ -381,7 +381,7 @@ services:
       - FIREWALL_INPUT_PORTS=8080,9696
     ports:
       - 2468:2468/tcp # cross-seed
-      - 8080:8080/tcp # qBit
+      - 8081:8081/tcp # qBit
       - 8694:8694/tcp # qBit
       - 5656:5656/tcp # kapowarr
       - 8191:8191/tcp # flaresolverr
