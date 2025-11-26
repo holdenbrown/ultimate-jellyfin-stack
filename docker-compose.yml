@@ -170,7 +170,6 @@ services:
       - 8694:8694/tcp # qBit
       - 8191:8191/tcp # flaresolverr
       - 9696:9696/tcp # prowlarr
-      - 7474:7474 # autobrr
     networks:
       - starr
       - proxy
