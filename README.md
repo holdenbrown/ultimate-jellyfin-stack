@@ -79,6 +79,8 @@ The Docker Compose file is the source of truth for container networking.
 
 For AI-assisted profile generation, use [docs/arr-profile-prompt.md](docs/arr-profile-prompt.md). It contains the minimal system context needed to create practical 1080p H.265/HEVC profiles and optional 2160p profiles without making downloads too strict.
 
+For guest request and remote-viewing access, use [docs/guest-media-access.md](docs/guest-media-access.md). It documents the Jellyfin/Jellyseerr guest flow, Tailscale-only access model, and the ACL pattern that limits guests to Jellyfin and Jellyseerr.
+
 ## Recommendations
 
 1. Get familiar with reverse proxies
