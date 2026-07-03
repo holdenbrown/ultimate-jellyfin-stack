@@ -111,6 +111,10 @@ services:
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
     container_name: jellyseerr
+    # Jellyseerr metadata and request searches should not depend on VPN or Tailscale DNS.
+    dns:
+      - 192.168.0.1
+      - 1.1.1.1
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
