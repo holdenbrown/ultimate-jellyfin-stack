@@ -40,6 +40,10 @@ services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
+    # Radarr metadata traffic should not depend on the VPN DNS path.
+    dns:
+      - 192.168.0.1
+      - 1.1.1.1
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -61,6 +65,10 @@ services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
+    # Sonarr metadata traffic should not depend on the VPN DNS path.
+    dns:
+      - 192.168.0.1
+      - 1.1.1.1
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -82,13 +90,20 @@ services:
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
-    network_mode: "service:gluetun"
+    dns:
+      - 192.168.0.1
+      - 1.1.1.1
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
     volumes:
       - ${BASE_PATH}/prowlarr/config:/config
+    ports:
+      - 9696:9696
+    networks:
+      - proxy
+      - starr
     restart: unless-stopped
 
   
@@ -115,7 +130,9 @@ services:
   flaresolverr:
     image: flaresolverr/flaresolverr:latest
     container_name: flaresolverr
-    network_mode: "service:gluetun"
+    dns:
+      - 192.168.0.1
+      - 1.1.1.1
     environment:
       - LOG_LEVEL=info
       - LOG_HTML=false
@@ -123,10 +140,16 @@ services:
       - TZ=${TZ}
       - LANG=en_US
       - DRIVER=nodriver
+    ports:
+      - 8191:8191
+    networks:
+      - proxy
+      - starr
     restart: unless-stopped
 
       
-  #Qbittorent - torrenting software
+  #Qbittorent - torrenting software. This is the only active service that shares
+  # Gluetun's network namespace, keeping torrent traffic behind the VPN.
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
@@ -158,18 +181,20 @@ services:
       - WIREGUARD_PRIVATE_KEY=${WIREGUARD_KEY}
       - WIREGUARD_ADDRESSES=${WIREGUARD_ADD}
       - SERVER_CITIES=${VPN_SERVER_CITIES}
+      - FREE_ONLY=on
       - UPDATER_PERIOD=24h
       - UPDATER_VPN_SERVICE_PROVIDERS=protonvpn
       - WIREGUARD_MTU=${WIREGUARD_MTU:-1200}
+      - WIREGUARD_PERSISTENT_KEEPALIVE_INTERVAL=25s
       - DNS=${DNS}
+      - DNS_UPSTREAM_RESOLVER_TYPE=plain
+      - DNS_PLAINTEXT_ADDRESS=10.2.0.1
       - PUBLICIP_API=${PUBLICIP_API}
       - PUBLICIP_API_TOKEN=${PUBLICIP_TOKEN}
-      - FIREWALL_INPUT_PORTS=8080,9696
+      - FIREWALL_INPUT_PORTS=8081,8694
     ports:
       - 8081:8081/tcp # qBit
       - 8694:8694/tcp # qBit
-      - 8191:8191/tcp # flaresolverr
-      - 9696:9696/tcp # prowlarr
     networks:
       - starr
       - proxy
@@ -181,6 +206,9 @@ services:
   profilarr:
     image: santiagosayshey/profilarr:latest
     container_name: profilarr
+    # Native Radarr/Sonarr profiles are preferred for this stack. Enable this
+    # profile only when intentionally syncing external profile definitions.
+    profiles: ["disabled"]
     ports:
       - 6868:6868
     volumes:

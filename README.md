@@ -68,6 +68,17 @@ Setting up the starr apps might be a bit confusing the first time, but to keep i
   
 Anytime you reference your media folder in a container you want the path to look like /share/media/tv instead of /tv like a lot of the default guides say, if you do end up mapping the path as /tv hardlinking will not work
 
+## Network layout
+
+The Docker Compose file is the source of truth for container networking.
+
+- qBittorrent is routed through Gluetun with `network_mode: "service:gluetun"`. This keeps torrent traffic behind the VPN.
+- Radarr and Sonarr use normal Docker bridge networking for metadata lookups and app traffic. They use explicit DNS servers so metadata lookups do not depend on VPN or Tailscale DNS.
+- Prowlarr and Flaresolverr use normal Docker bridge networking. This keeps indexer and Cloudflare-solver traffic reliable without exposing qBittorrent outside the VPN.
+- Profilarr is disabled by default because this stack prefers native Radarr/Sonarr quality profiles and custom formats.
+
+For AI-assisted profile generation, use [docs/arr-profile-prompt.md](docs/arr-profile-prompt.md). It contains the minimal system context needed to create practical 1080p H.265/HEVC profiles and optional 2160p profiles without making downloads too strict.
+
 ## Recommendations
 
 1. Get familiar with reverse proxies
